@@ -1,0 +1,107 @@
+<!doctype html>
+<HTML>
+ 	 <head>
+   	<link href="styles.css" type="text/css" rel="stylesheet">
+   	<script>
+   	src="main.js"
+  	 </script>
+	</head>
+		<body>
+	 		<H2>Gisella Barbaray</H2>
+				<fieldset style="width:700px;padding:30px;" id="login_form">
+					 <legend>Cart:</legend>
+					 <label> Name: <input type="text" size="20"><br></label>
+					 <label> Email: <input type="text" size="20"><br></label>
+					 <label> Phone: <input type="text" size="20"><br></label>
+				</fieldset>
+
+					<form>
+						<table id="cart-1" border="1">
+							<tr class="table headings"> 
+								<th> Line </th>
+								<th> Qty</th>
+								<th> Product Code</th>
+								<th> Product Description</th>
+								<th> Price Each</th>
+								<th>Qty * Price Extensions</th>
+								<th>Actions</th>
+							</tr>
+							<tr class="cart-line">
+								<td class="line"> 1 </td>
+								<td class="qty"> <input type="number" class="space" value= 10 ></input></td>
+								<td class="product code"> G6</td>
+								<td class="product description"> AAAA</td>
+								<td class="price each"> 11</td>
+								<td class= "qty * price"> 110</td>
+								<td class="actions"> 
+									<a href="#remove">Remove</a></td>
+							</tr>
+							<tr class="cart-line">
+								<td class="line"> 2</td>
+								<td class="qty"><input type="number" class="space" value= 20 ></input></td>
+								<td class="product code"> PC5150</td>
+								<td class="product description"> BBBB</td>
+								<td class="price each"> 12</td>
+								<td class= "qty * price" > 240</td>
+								<td class="actions" >
+									<a href="#remove">Remove</a></td>
+							</tr>
+								<tr class="cart-line">
+									<td class="line"> 3</td>
+									<td class="qty"><input type="number" class="space" value= 30 ></input>
+									</td>
+									<td class="product code"> PP145</td>
+									<td class="product description" > CCC</td>
+									<td class="price each"> 15</td>
+									<td class= "qty * price"> 450</td>
+									<td class="actions"> 
+									<a href="#remove">Remove</a></td>
+								</tr>
+								<tr>
+									<td colspan="4"> </td>
+									<td class="total"> TOTAL:</td>
+									<td id="cart-total"></td>
+								</tr>
+							</table>
+						</form>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+        var table = document.getElementById("cart-1");
+        var lines = table.getElementsByClassName("cart-line")
+        var line_count = lines.length;
+
+
+        var getTotal = function () {
+            var total = 0;
+
+            for (var i = 0; i < line_count; i++) {
+                var line = lines[i];
+
+                var qty = line.getElementsByClassName("qty")[0];
+                var quantity = parseFloat(qty.getElementsByTagName("input")[0].value);
+
+                var price = parseFloat(line.getElementsByClassName("price each")[0].innerHTML);
+                var subtotalElement = line.getElementsByClassName("qty * price")[0];
+
+                var subTotal = quantity * price;
+                subtotalElement.innerHTML = subTotal;
+                total += subTotal;
+            }
+            var totalElement = document.getElementById("cart-total");
+            totalElement.innerHTML = total;
+        };
+
+        for (var c = 0; c < line_count; c++) {
+            var line = lines[c];
+            var quantityElement = line.getElementsByTagName("input")[0];
+            quantityElement.addEventListener("change", function () {
+                getTotal();
+            });
+        }
+        getTotal();
+    });
+
+</script>
+</body>
+</html>

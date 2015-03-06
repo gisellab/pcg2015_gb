@@ -3,11 +3,22 @@ li
 body
 {background-color:#3385D6;
   color:white; 
-font-family: impact}
+font-family: "Palatino";}
 h1 
 {font-size:60px;
-color:white;}
+color:white;text-align:center;}
+h2
+{font-size:30px;
+color:white;text-align:left; width:650px; padding:10px;border:1px solid #4775A3;background-color:#4775A3}
 th 
 {text-align:left;}
-#tristan {float:right;}
- 
+#tristan {text-align:center;}
+label{margin:1em;}
+li a{padding:10px;border:1px solid #4775A3;}
+
+.selected {background-color:#4775A3;}
+#login_form label input{margin-bottom: 1em;}
+table, tr, td, th {
+	border:1px solid; background-color: #C2C2A3; text-align:center;
+}
+.space {width:40px; height:15px;}
