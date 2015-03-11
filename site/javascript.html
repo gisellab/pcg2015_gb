@@ -1,0 +1,61 @@
+<!doctype html>
+<HTML>
+ 	 <head>
+		<title></title>
+			</head>
+				<body>
+					<script>
+						var x = 1;
+						var y = 2, z = 3;
+						console.log(y)
+
+						//numbers squared
+						a=Math.pow(2, 32);
+						console.log(a)
+
+						//add 2 words toegther
+						s = "Hello, " + "World!";
+						console.log(s)
+
+						//join three words toegther
+						x=["do", "re", "mi"].join(" ")
+						console.log(x)
+
+						//length
+						b="abacadabra".length
+						console.log(b)
+
+						//time and date
+						var yr = 2014;
+						var mo = 9;
+						var dy = 25;
+						var hr = 09;
+						var mi = 30;
+						var ss = 10;
+						var t = new Date(yr, mo - 1, dy, hr, mi, ss);
+						console.log(t)
+
+						var a = [3, 1, 4, 2];
+						console.log()
+
+						coins = {
+        1: 6,
+        5: 4,
+        10: 2,
+        25: 1
+    };
+    function total(coins) {
+        var pennies = 0;
+        for (var key in coins) {
+            var quantity = coins[key];
+            pennies += key * quantity;
+        }
+        return pennies;
+    }
+    console.log("<h1>Total:" + total(coins) + "</h1>")
+
+						// console.log(y) prints to console log
+						// document.write shows to main screen
+					</script>
+	 			</body>
+</html>

@@ -1,0 +1,77 @@
+<!doctype html>
+<HTML>
+ <head>
+   	<link href="styles.css" type="text/css" rel="stylesheet">
+   	<script>
+   	src="main.js"
+  	</script>
+	</head>
+		<body>
+	 		<H2>Gisella Barbaray</H2>
+				<form method="post" id="registration">
+				<fieldset style="width:700px;padding:10px;" id="login_form">
+					 <legend>Login:</legend>
+					 <div id="errors" style="color: red;"></div>
+					 <label><div> Name:</div><input type="text" name = "name" id="name" class="login"><br></label>
+					 <label><div>Email:</div><input type="email" id="email" class="login" ><br></label>
+					 <label><div>Username:</div><input type="text" name="username" id="username" class="login"></label><br>
+					 <label><div> Password: </div><input type="text" name="password" id="password"class="login"></label><br>
+					 <label><div> Verify Password:</div><input type="text" name="verify-password" id="verify-password" class="login"></label><br>
+					<label><div> Birthday: </div><input type="date" name="birthday" id="birthday"class="login"><br></label><br>
+				</fieldset>
+				<label><input type= "submit" value="register"></label>
+			</form>
+	<script>
+    var regForm = document.getElementById("registration");
+
+    function validateForm() {
+        /* how could we organize this code and make it more reusable? */
+        var errors = document.getElementById("errors");
+        var error_list = [];
+        var username = document.getElementById("name").value;
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var verifyPassword = document.getElementById("verify-password").value;
+        var dobValue = document.getElementById("birthday").value;
+        var dob = new Date(dobValue);
+        var now = new Date();
+        var ageDiff = new Date()
+        var nowMS = now.getTime();
+        var dobMS = dob.getTime();
+        var iDiff= nowMS - dobMS;
+        ageDiff.setTime(iDiff);
+        var age = parseInt(ageDiff.getFullYear()) - 1970;
+
+        if (password != verifyPassword) {
+            error_list.push("Password and Verify Password must match");
+        }
+
+        if (password.length < 8) {
+            error_list.push("Password must be at least 8 letters or numbers.");
+        }
+
+        if (username.length < 3) {
+            error_list.push("Username must be at least 3 letters or numbers.");
+        }
+
+        if (email.length < 3) {
+            error_list.push("Email must be at least 3 letters or numbers.");
+        }
+
+        if (age < 21) {
+            error_list.push("Age must be over 21");
+        }
+
+        errors.innerHTML = error_list.join("<br>");
+    }
+    regForm.addEventListener("submit", function(event){
+        event.preventDefault();
+        validateForm();
+    });
+</script>
+	</body>
+</html>
+
+
+
+

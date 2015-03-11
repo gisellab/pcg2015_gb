@@ -17,7 +17,7 @@
 
 					<form>
 						<table id="cart-1" border="1">
-							<tr class="table headings"> 
+							<tr class="cart-headings"> 
 								<th> Line </th>
 								<th> Qty</th>
 								<th> Product Code</th>
@@ -26,82 +26,165 @@
 								<th>Qty * Price Extensions</th>
 								<th>Actions</th>
 							</tr>
-							<tr class="cart-line">
-								<td class="line"> 1 </td>
-								<td class="qty"> <input type="number" class="space" value= 10 ></input></td>
-								<td class="product code"> G6</td>
-								<td class="product description"> AAAA</td>
-								<td class="price each"> 11</td>
-								<td class= "qty * price"> 110</td>
+							<tr class="cart-line template" id="cart-template">
+								td><input class="quantity" type="number" value="1"></td>
+       							<td><select class="product-code">
+					            <option>PC01</option>
+					            <option>PC02</option>
+					            <option>PC03</option></td>
+								<td class="product-code"></td>
+								<td class="product-description"></td>
+								<td class="price-each">1</td>
+								<td class= "qty * price">1</td>
 								<td class="actions"> 
-									<a href="#remove">Remove</a></td>
+									<button class="removeRow">Remove</button>
+          							<button class="insertRow">Insert</button>
+          						</td>
 							</tr>
-							<tr class="cart-line">
+							<!-- <tr class="cart-line">
 								<td class="line"> 2</td>
 								<td class="qty"><input type="number" class="space" value= 20 ></input></td>
-								<td class="product code"> PC5150</td>
-								<td class="product description"> BBBB</td>
-								<td class="price each"> 12</td>
-								<td class= "qty * price" > 240</td>
-								<td class="actions" >
-									<a href="#remove">Remove</a></td>
-							</tr>
-								<tr class="cart-line">
+								<td class="product-code"> PC5150</td>
+								<td class="product-description"> BBBB</td>
+								<td class="price-each"> 12</td>
+								<td class= "qty-price" > 240</td>
+								<td class="actions">
+									<button class="removeRow">Remove</button>
+          							<button class="insertRow">Insert</button>
+									</td>
+							</tr> -->
+								<!-- <tr class="cart-line">
 									<td class="line"> 3</td>
 									<td class="qty"><input type="number" class="space" value= 30 ></input>
 									</td>
-									<td class="product code"> PP145</td>
-									<td class="product description" > CCC</td>
-									<td class="price each"> 15</td>
-									<td class= "qty * price"> 450</td>
+									<td class="product-code"> PP145</td>
+									<td class="product-description" > CCC</td>
+									<td class="price-each"> 15</td>
+									<td class= "qty-price"> 450</td>
 									<td class="actions"> 
-									<a href="#remove">Remove</a></td>
-								</tr>
+									<button class="removeRow">Remove</button>
+          							<button class="insertRow">Insert</button></td>
+								</tr> -->
 								<tr>
 									<td colspan="4"> </td>
-									<td class="total"> TOTAL:</td>
+									<td class="cart-total"> TOTAL:</td>
 									<td id="cart-total"></td>
+									<td class="actions">
+           							<button id="add-line">Add Line</button>
 								</tr>
 							</table>
 						</form>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+// document.addEventListener("DOMContentLoaded", function () {
 
-        var table = document.getElementById("cart-1");
-        var lines = table.getElementsByClassName("cart-line")
-        var line_count = lines.length;
+//         var table = document.getElementById("cart-1");
+//         var lines = table.getElementsByClassName("cart-line")
+//         var line_count = lines.length;
 
+//         var getTotal = function () {
+//             var total = 0;
 
-        var getTotal = function () {
+//             for (var i = 0; i < line_count; i++) {
+//                 var line = lines[i];
+
+//                 var qty = line.getElementsByClassName("qty")[0];
+//                 var quantity = parseFloat(qty.getElementsByTagName("input")[0].value);
+
+//                 var price = parseFloat(line.getElementsByClassName("price each")[0].innerHTML);
+//                 var subtotalElement = line.getElementsByClassName("qty * price")[0];
+
+//                 var subTotal = quantity * price;
+//                 subtotalElement.innerHTML = subTotal;
+//                 total += subTotal;
+//             }
+//             var totalElement = document.getElementById("cart-total");
+//             totalElement.innerHTML = total;
+//         };
+
+//         for (var c = 0; c < line_count; c++) {
+//             var line = lines[c];
+//             var quantityElement = line.getElementsByTagName("input")[0];
+//             quantityElement.addEventListener("change", function () {
+//                 getTotal();
+//             });
+//         }
+//         getTotal();
+//     });
+
+ function Cart(table) {
+
+        function updateSubtotal(line) {
+            var quantity = parseFloat(line.getElementsByClassName("qty")[0].value);
+            var price = parseFloat(line.getElementsByClassName("price-each")[0].innerHTML);
+            var subtotal = quantity * price;
+            var subtotalElement = line.getElementsByClassName("qty-price")[0];
+            subtotalElement.innerHTML = subtotal;
+            return subtotal;
+        }
+
+        function updateTotals() {
+            var lines = table.getElementsByClassName("cart-line");
+            var line_count = lines.length;
             var total = 0;
 
             for (var i = 0; i < line_count; i++) {
                 var line = lines[i];
-
-                var qty = line.getElementsByClassName("qty")[0];
-                var quantity = parseFloat(qty.getElementsByTagName("input")[0].value);
-
-                var price = parseFloat(line.getElementsByClassName("price each")[0].innerHTML);
-                var subtotalElement = line.getElementsByClassName("qty * price")[0];
-
-                var subTotal = quantity * price;
-                subtotalElement.innerHTML = subTotal;
-                total += subTotal;
+                total += updateSubtotal(line);
             }
-            var totalElement = document.getElementById("cart-total");
-            totalElement.innerHTML = total;
-        };
-
-        for (var c = 0; c < line_count; c++) {
-            var line = lines[c];
-            var quantityElement = line.getElementsByTagName("input")[0];
-            quantityElement.addEventListener("change", function () {
-                getTotal();
-            });
+            var totalElement = document.getElementById("total");
+            totalElement.innerHTML = String(total);
         }
-        getTotal();
-    });
 
+        function Row() {
+            var row = document.getElementById('cart-template').cloneNode(true);
+            row.classList.remove("template");
+            addActionListeners(row);
+            return row;
+        }
+
+        function addLine() {
+            var existingRow = table.getElementsByClassName("cart-total")[0];
+            var row = Row();
+            row.getElementsByClassName("product-code")[0].selectedIndex = 2;
+            insertAbove(row, existingRow);
+        }
+
+        function insertRow(event) {
+            var existingRow = event.target.parentElement.parentElement;
+            insertAbove(Row(), existingRow);
+        }
+
+        function insertAbove(row, existingRow) {
+            existingRow.parentElement.insertBefore(row, existingRow);
+            updateTotals();
+        }
+
+        function removeRow(event) {
+            event.target.parentElement.parentElement.remove();
+            updateTotals();
+        }
+
+        function addActionListeners(line) {
+            line.getElementsByTagName("input")[0].addEventListener("change", updateTotals);
+            line.getElementsByClassName("removeRow")[0].addEventListener("click", removeRow);
+            line.getElementsByClassName("insertRow")[0].addEventListener("click", insertRow);
+        }
+
+        document.getElementById("add-line").addEventListener("click", addLine);
+
+        return {
+            updateTotals: updateTotals,
+            addLine: addLine
+        }
+    }
+
+    //DOCUMENT READY - PAGE EXISTS
+    document.addEventListener("DOMContentLoaded", function () {
+        var cart = Cart(document.getElementById("cart-1"));
+        cart.addLine();
+        cart.addLine();
+        cart.updateTotals();
+    })
 </script>
 </body>
 </html>
